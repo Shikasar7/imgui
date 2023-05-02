@@ -875,6 +875,7 @@ CODE
 #define IMGUI_DEFINE_MATH_OPERATORS
 #endif
 #include "imgui_internal.h"
+#include "imgui_tables.cpp"
 
 // System includes
 #include <stdio.h>      // vsnprintf, sscanf, printf
@@ -3835,10 +3836,10 @@ void ImGui::SetActiveID(ImGuiID id, ImGuiWindow* window)
 {
     ImGuiContext& g = *GImGui;
 
-
-    for (int i = 0; i < DC.Layouts.Data.Size; i++)
+    if(window)
+    for (int i = 0; i < window->DC.Layouts.Data.Size; i++)
     {
-        ImGuiLayout* layout = (ImGuiLayout*)DC.Layouts.Data[i].val_p;
+        ImGuiLayout* layout = (ImGuiLayout*)window->DC.Layouts.Data[i].val_p;
         IM_DELETE(layout);
     }
     // While most behaved code would make an effort to not steal active id during window move/drag operations,
